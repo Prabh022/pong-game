@@ -19,6 +19,15 @@ let ballSpeedY = 4;
 let playerScore = 0;
 let aiScore = 0;
 
+let paused = false;
+
+// Press P to pause or resume the game
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'p' || event.key === 'P') {
+        paused = !paused;
+    }
+});
+
 // Mouse movement for player paddle
 canvas.addEventListener('mousemove', function(event) {
     const rect = canvas.getBoundingClientRect();
@@ -63,6 +72,16 @@ function draw() {
     ctx.fillStyle = "#fff";
     ctx.fillText(playerScore, canvas.width / 4, 50);
     ctx.fillText(aiScore, (canvas.width * 3) / 4, 50);
+
+    // Pause overlay
+    if (paused) {
+        ctx.font = "40px Arial";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#fff";
+        ctx.fillText("PAUSED", canvas.width / 2, canvas.height / 2);
+        ctx.font = "20px Arial";
+        ctx.fillText("Press P to resume", canvas.width / 2, canvas.height / 2 + 35);
+    }
 }
 
 // Update game state
@@ -139,7 +158,9 @@ function resetBall() {
 
 // Main game loop
 function gameLoop() {
-    update();
+    if (!paused) {
+        update();
+    }
     draw();
     requestAnimationFrame(gameLoop);
 }

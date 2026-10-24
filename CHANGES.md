@@ -1,3 +1,9 @@
+## 2026-10-24 — Pause with the P key
+
+- `game.js`: pressing `P` (lower- or uppercase) toggles a pause state. While paused, the game loop skips the physics/AI update but keeps drawing, so the ball and paddles freeze and a "PAUSED — Press P to resume" overlay is drawn on the canvas. Pressing `P` again resumes from exactly where the game stopped.
+- `README.md`: updated — the game no longer has "no keyboard controls"; the P pause key is now documented.
+- Test (Node harness in /tmp with stubbed canvas/document, game loop driven one frame at a time): ball moves while unpaused, ball position is unchanged across a paused frame, the PAUSED overlay text is drawn while paused, and the ball moves again after resuming with capital `P`. All checks passed.
+
 # Changes made when extracting pong-game into a standalone project
 
 Prepared 2026-10-21 from the `pong-game` folder of the `web-projects-portfolio` repository.
