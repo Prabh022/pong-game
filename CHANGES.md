@@ -4,6 +4,12 @@
 - `README.md`: updated — the game no longer has "no keyboard controls"; the P pause key is now documented.
 - Test (Node harness in /tmp with stubbed canvas/document, game loop driven one frame at a time): ball moves while unpaused, ball position is unchanged across a paused frame, the PAUSED overlay text is drawn while paused, and the ball moves again after resuming with capital `P`. All checks passed.
 
+## 2026-11-01 — First-to-5 win condition
+
+- `game.js`: a `WINNING_SCORE` of 5 and a `winner` flag. When either score reaches 5, the match ends: `update()` stops moving the ball and a win overlay ("You Win!" or "AI Wins!") is drawn on the canvas. Pressing `R` resets both scores and starts a new match. The pause key still works as before.
+- `README.md`: updated — the game no longer has "no win condition"; the first-to-5 win and the R restart key are now documented.
+- Test (Node harness in /tmp with stubbed canvas/document, game loop driven one frame at a time): at 4–4 with the ball past the AI paddle, the player reaches 5 and `winner` becomes "You"; the ball is frozen on later frames and the "You Win!" / "Press R to play again" overlay is drawn; `R` clears both scores and the winner and the ball moves again; the mirror case gives "AI Win!"; scoring below 5 leaves no winner; capital `P` still toggles pause. All 12 checks passed. `node --check` clean.
+
 # Changes made when extracting pong-game into a standalone project
 
 Prepared 2026-10-21 from the `pong-game` folder of the `web-projects-portfolio` repository.

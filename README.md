@@ -8,7 +8,7 @@ A classic Pong game that runs in the browser, built with plain HTML, CSS, and Ja
 - **Pause:** press **P** to pause or resume the game. While paused, the ball and AI paddle stop moving and a "PAUSED — Press P to resume" message is shown on the canvas.
 - **Opponent (right):** a simple computer AI that tracks the ball, with a small dead zone so it can be beaten.
 - **Scoring:** you score a point when the ball passes the AI paddle; the AI scores when the ball passes yours. The score is shown at the top of the canvas. After each point the ball resets to the center and serves in a random direction.
-- **There is no win condition or game-over screen** — play continues indefinitely, so set your own target score.
+- **Winning:** the first player to **5 points** wins the match. A win message is shown on the canvas; press **R** to start a new match.
 - The ball speeds up slightly with every paddle hit, and where the ball strikes the paddle changes its angle.
 
 ## How to Run

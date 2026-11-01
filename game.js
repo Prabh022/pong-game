@@ -19,12 +19,22 @@ let ballSpeedY = 4;
 let playerScore = 0;
 let aiScore = 0;
 
+const WINNING_SCORE = 5;
+let winner = null; // "You" or "AI" once someone reaches WINNING_SCORE
+
 let paused = false;
 
-// Press P to pause or resume the game
+// Press P to pause or resume the game; press R to start a new match
+// after someone has won
 document.addEventListener('keydown', function(event) {
     if (event.key === 'p' || event.key === 'P') {
         paused = !paused;
+    }
+    if ((event.key === 'r' || event.key === 'R') && winner !== null) {
+        playerScore = 0;
+        aiScore = 0;
+        winner = null;
+        resetBall();
     }
 });
 
@@ -82,10 +92,24 @@ function draw() {
         ctx.font = "20px Arial";
         ctx.fillText("Press P to resume", canvas.width / 2, canvas.height / 2 + 35);
     }
+
+    // Win overlay
+    if (winner !== null) {
+        ctx.font = "40px Arial";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#fff";
+        ctx.fillText(winner + " Win!", canvas.width / 2, canvas.height / 2);
+        ctx.font = "20px Arial";
+        ctx.fillText("Press R to play again", canvas.width / 2, canvas.height / 2 + 35);
+    }
 }
 
 // Update game state
 function update() {
+    if (winner !== null) {
+        return; // Match over — wait for R to start a new one
+    }
+
     // Ball movement
     ballX += ballSpeedX;
     ballY += ballSpeedY;
@@ -128,10 +152,16 @@ function update() {
     // Score (ball out of bounds)
     if (ballX < 0) {
         aiScore++;
+        if (aiScore >= WINNING_SCORE) {
+            winner = "AI";
+        }
         resetBall();
     }
     if (ballX > canvas.width) {
         playerScore++;
+        if (playerScore >= WINNING_SCORE) {
+            winner = "You";
+        }
         resetBall();
     }
 
